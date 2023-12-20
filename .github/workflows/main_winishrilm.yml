@@ -15,16 +15,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Set up PowerShell
-        uses: setup-pwsh@v2
-        with:
-          pwsh-version: '7'
-
-      - name: Install Azure PowerShell Module
-        run: |
-          Install-Module -Name Az -AllowClobber -Force -Scope CurrentUser
-          Import-Module Az
-          
+                
       - name: Set up Java version
         uses: actions/setup-java@v1
         with:
@@ -38,12 +29,7 @@ jobs:
         with:
           name: java-app
           path: '${{ github.workspace }}/target/*.war'
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          enable-AzPSSession: true
-          
+                
   deploy:
     runs-on: windows-latest
     needs: build
