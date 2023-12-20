@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set up PowerShell
-        uses: actions/setup-pwsh@v2
+        uses: setup-pwsh@v2
         with:
           pwsh-version: '7'
 
