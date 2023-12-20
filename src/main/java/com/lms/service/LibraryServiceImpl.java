@@ -16,8 +16,19 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public void addBook(BookRequest bookRequest) {
-        books.add(new Book(bookRequest.getTitle(), bookRequest.getAuthor()));
+        // Check if a book with the same title and author combination already exists
+        boolean duplicateExists = books.stream()
+                .anyMatch(book -> book.getTitle().equalsIgnoreCase(bookRequest.getTitle())
+                        && book.getAuthor().equalsIgnoreCase(bookRequest.getAuthor()));
+
+        if (!duplicateExists) {
+            // If no duplicate is found, add the new book to the list
+            books.add(new Book(bookRequest.getTitle(), bookRequest.getAuthor()));
+        } else {
+            throw new IllegalArgumentException("Duplicate entry: Book with the same title and author already exists");
+        }
     }
+
 
     @Override
     public List<Book> getAllBooks() {
@@ -33,9 +44,22 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public void updateBook(Long id, BookRequest bookRequest) {
-        getBookById(id).ifPresent(existingBook -> {
-            existingBook.setTitle(bookRequest.getTitle());
-            existingBook.setAuthor(bookRequest.getAuthor());
+        Optional<Book> existingBook = getBookById(id);
+
+        existingBook.ifPresent(book -> {
+            // Check if the updated title and author combination already exists
+            boolean duplicateExists = books.stream()
+                    .anyMatch(existingBookInList ->
+                            existingBookInList.getTitle().equalsIgnoreCase(bookRequest.getTitle()) &&
+                            existingBookInList.getAuthor().equalsIgnoreCase(bookRequest.getAuthor()));
+
+            if (!duplicateExists) {
+                // If no duplicate is found, update the existing book
+                book.setTitle(bookRequest.getTitle());
+                book.setAuthor(bookRequest.getAuthor());
+            } else {
+                throw new IllegalArgumentException("Duplicate entry: Book with the same title and author already exists");
+            }
         });
     }
 
