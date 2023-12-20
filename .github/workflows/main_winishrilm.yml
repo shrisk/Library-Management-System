@@ -15,7 +15,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Set up PowerShell
+        uses: actions/setup-pwsh@v2
+        with:
+          pwsh-version: '7'
 
+      - name: Install Azure PowerShell Module
+        run: |
+          Install-Module -Name Az -AllowClobber -Force -Scope CurrentUser
+          Import-Module Az
+          
       - name: Set up Java version
         uses: actions/setup-java@v1
         with:
