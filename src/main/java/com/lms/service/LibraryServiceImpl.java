@@ -17,9 +17,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public void addBook(BookRequest bookRequest) {
         // Check if a book with the same title and author combination already exists
-        boolean duplicateExists = books.stream()
-                .anyMatch(book -> book.getTitle().equalsIgnoreCase(bookRequest.getTitle())
-                        && book.getAuthor().equalsIgnoreCase(bookRequest.getAuthor()));
+        boolean duplicateExists = this.checkIfDuplicateBook(bookRequest);
 
         if (!duplicateExists) {
             // If no duplicate is found, add the new book to the list
@@ -48,10 +46,7 @@ public class LibraryServiceImpl implements LibraryService {
 
         existingBook.ifPresent(book -> {
             // Check if the updated title and author combination already exists
-            boolean duplicateExists = books.stream()
-                    .anyMatch(existingBookInList ->
-                            existingBookInList.getTitle().equalsIgnoreCase(bookRequest.getTitle()) &&
-                            existingBookInList.getAuthor().equalsIgnoreCase(bookRequest.getAuthor()));
+        	boolean duplicateExists = this.checkIfDuplicateBook(bookRequest);
 
             if (!duplicateExists) {
                 // If no duplicate is found, update the existing book
@@ -66,6 +61,13 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public void deleteBook(Long id) {
         books.removeIf(book -> book.getId().equals(id));
+    }
+    
+    private boolean checkIfDuplicateBook(BookRequest bookRequest) {
+    	 boolean duplicateExists = books.stream()
+                 .anyMatch(book -> book.getTitle().equalsIgnoreCase(bookRequest.getTitle())
+                         && book.getAuthor().equalsIgnoreCase(bookRequest.getAuthor()));
+    	 return duplicateExists;
     }
 }
 
