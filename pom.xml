@@ -56,6 +56,13 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <plugin>
+			    <groupId>com.microsoft.azure</groupId>
+			    <artifactId>azure-webapp-maven-plugin</artifactId>
+			    <version>1.1.0</version>
+			    <configuration>
+			    </configuration>
+			</plugin>
 
             <!-- Maven Surefire Plugin for running tests -->
             <plugin>
