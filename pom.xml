@@ -20,8 +20,6 @@
         <java.version>11</java.version>
     </properties>
 
-    <packaging>war</packaging> <!-- Switch to WAR packaging -->
-
     <dependencies>
         <!-- Spring Boot Starter Web for building RESTful APIs -->
         <dependency>
@@ -35,13 +33,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-tomcat</artifactId>
-		    <scope>provided</scope>
-		</dependency>
-
     </dependencies>
 
     <build>
@@ -56,13 +47,6 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-            <plugin>
-			    <groupId>com.microsoft.azure</groupId>
-			    <artifactId>azure-webapp-maven-plugin</artifactId>
-			    <version>1.1.0</version>
-			    <configuration>
-			    </configuration>
-			</plugin>
 
             <!-- Maven Surefire Plugin for running tests -->
             <plugin>
@@ -71,7 +55,7 @@
                 <version>2.22.2</version>
             </plugin>
 
-            <!-- Spring Boot Maven Plugin for creating executable WAR files -->
+            <!-- Spring Boot Maven Plugin for creating executable JAR or WAR files -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
