@@ -10,6 +10,7 @@ import com.lms.entity.Book;
 import com.lms.service.LibraryService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/library")
@@ -30,7 +31,7 @@ public class LibraryController {
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
-    @GetMapping("/getBook/{id}")
+    @GetMapping("/getBook/id/{id}")
     public ResponseEntity<Book> getBook(@PathVariable Long id) {
         return libraryService.getBookById(id)
                 .map(book -> new ResponseEntity<>(book, HttpStatus.OK))
@@ -39,14 +40,26 @@ public class LibraryController {
 
     @PutMapping("/updateBook/{id}")
     public ResponseEntity<String> updateBook(@PathVariable Long id, @RequestBody BookRequest bookRequest) {
-        libraryService.updateBook(id, bookRequest);
-        return new ResponseEntity<>("Book updated successfully", HttpStatus.OK);
+        boolean update = libraryService.updateBook(id, bookRequest);
+        if (update) {
+        	return new ResponseEntity<>("Book updated successfully", HttpStatus.OK);
+        } else {
+        	return new ResponseEntity<>("Book duplicate/not found", HttpStatus.BAD_REQUEST);
+        }
+        
     }
 
     @DeleteMapping("/deleteBook/{id}")
     public ResponseEntity<String> deleteBook(@PathVariable Long id) {
         libraryService.deleteBook(id);
         return new ResponseEntity<>("Book deleted successfully", HttpStatus.OK);
+    }
+    
+    @GetMapping("/getBook/title/{title}")
+    public ResponseEntity<List<Book>> getBooksByTitle(@PathVariable String title) {
+       return libraryService.getBookByTitle(title)
+                .map(book -> new ResponseEntity<>(book, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
 

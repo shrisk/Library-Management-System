@@ -14,8 +14,10 @@ public interface LibraryService {
 
     Optional<Book> getBookById(Long id);
 
-    void updateBook(Long id, BookRequest bookRequest);
+    boolean updateBook(Long id, BookRequest bookRequest);
 
     void deleteBook(Long id);
+
+    Optional<List<Book>> getBookByTitle(String title);
 }
 
