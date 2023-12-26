@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lms.dto.BookCountByTitle;
 import com.lms.dto.BookRequest;
 import com.lms.entity.Book;
 import com.lms.repo.BookRepository;
@@ -62,5 +63,10 @@ public class LibraryServiceImpl implements LibraryService {
     public Optional<List<Book>> getBookByTitle(String title) {
         logger.info("Retrieving books by title: {}", title);
         return bookRepo.getBookByTitle(title);
+    }
+    
+    @Override
+    public List<BookCountByTitle> getCountsByTitle() {
+        return bookRepo.getCountsByTitle();
     }
 }

@@ -43,6 +43,12 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		<!-- Add JFreeChart Dependency -->
+		<dependency>
+		    <groupId>org.jfree</groupId>
+		    <artifactId>jfreechart</artifactId>
+		    <version>1.5.3</version>
+		</dependency>
 
 
 	</dependencies>

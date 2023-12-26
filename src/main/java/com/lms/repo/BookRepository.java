@@ -1,5 +1,6 @@
 package com.lms.repo;
 
+import com.lms.dto.BookCountByTitle;
 import com.lms.dto.BookRequest;
 import com.lms.entity.Book;
 import org.slf4j.Logger;
@@ -38,6 +39,7 @@ public class BookRepository {
     private static final String UPDATE_BOOK_QUERY = "UPDATE books SET title = ?, author = ? WHERE id = ?";
     private static final String DELETE_BOOK_QUERY = "DELETE FROM books WHERE id = ?";
     private static final String COUNT_DUPLICATE_BOOK_QUERY = "SELECT COUNT(*) FROM books WHERE title = ? AND author = ?";
+    private static final String GET_COUNTS_BY_TITLE_QUERY = "SELECT title, COUNT(title), COUNT(DISTINCT author) FROM books GROUP BY title";
 
     public void createTableIfNotExists() {
         jdbcTemplate.update(CREATE_TABLE_QUERY);
@@ -89,5 +91,13 @@ public class BookRepository {
     private boolean checkIfDuplicateBook(BookRequest bookRequest) {
         int count = jdbcTemplate.queryForObject(COUNT_DUPLICATE_BOOK_QUERY, Integer.class, bookRequest.getTitle(), bookRequest.getAuthor());
         return count > 0;
+    }
+    
+    public List<BookCountByTitle> getCountsByTitle() {
+        return jdbcTemplate.query(GET_COUNTS_BY_TITLE_QUERY, (rs, rowNum) -> new BookCountByTitle(
+                rs.getString("title"),
+                rs.getLong(2),
+                rs.getLong(3)
+        ));
     }
 }

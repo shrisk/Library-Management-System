@@ -1,5 +1,6 @@
 package com.lms.service;
 
+import com.lms.dto.BookCountByTitle;
 import com.lms.dto.BookRequest;
 import com.lms.entity.Book;
 
@@ -56,4 +57,11 @@ public interface LibraryService {
      * @return An Optional containing a list of books if found, otherwise empty.
      */
     Optional<List<Book>> getBookByTitle(String title);
+    
+    /**
+     * Get counts of books grouped by title.
+     *
+     * @return List of {@link BookCountByTitle} representing counts of books.
+     */
+    List<BookCountByTitle> getCountsByTitle();
 }
