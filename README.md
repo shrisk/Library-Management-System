@@ -31,7 +31,11 @@ GET /library/getAllBooks
 Get Book by ID:
 
 
-GET /library/getBook/{id}
+GET /library/getBook/id/{id}
+Get Book by Book Title:
+
+
+GET /library/getBook/title/{title}
 Update Book:
 
 
