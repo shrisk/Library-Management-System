@@ -1,12 +1,10 @@
 package com.lms.config;
 
+import com.zaxxer.hikari.HikariDataSource;
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 @Configuration
 public class DatabaseConfig {
@@ -21,7 +19,11 @@ public class DatabaseConfig {
     private String jdbcPassword;
 
     @Bean
-    public Connection databaseConnection() throws SQLException {
-        return DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcPassword);
+    public DataSource dataSource() {
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setJdbcUrl(jdbcUrl);
+        dataSource.setUsername(jdbcUser);
+        dataSource.setPassword(jdbcPassword);
+        return dataSource;
     }
 }
