@@ -17,12 +17,6 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
-    @PostMapping("/addPerson")
-    public ResponseEntity<String> addPerson(@RequestBody PersonRequest personRequest) {
-        personService.addPerson(personRequest);
-        return new ResponseEntity<>("Person added successfully", HttpStatus.CREATED);
-    }
-
     @GetMapping("/getAllPerson")
     public ResponseEntity<List<Person>> getAllPeople() {
         List<Person> people = personService.getAllPeople();
