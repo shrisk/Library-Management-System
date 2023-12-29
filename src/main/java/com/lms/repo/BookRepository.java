@@ -1,6 +1,5 @@
 package com.lms.repo;
 
-import com.lms.dto.BookCountByTitle;
 import com.lms.dto.BookRequest;
 import com.lms.entity.Book;
 import org.slf4j.Logger;
@@ -23,27 +22,16 @@ public class BookRepository {
     @Autowired
     public BookRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        createTableIfNotExists();
     }
 
-    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS books (" +
-            "id INT AUTO_INCREMENT PRIMARY KEY," +
-            "title VARCHAR(255) NOT NULL," +
-            "author VARCHAR(255) NOT NULL" +
-            ")";
-
-    private static final String INSERT_BOOK_QUERY = "INSERT INTO books (title, author) VALUES (?, ?)";
-    private static final String SELECT_ALL_BOOKS_QUERY = "SELECT * FROM books";
-    private static final String SELECT_BOOK_BY_ID_QUERY = "SELECT * FROM books WHERE id = ?";
-    private static final String SELECT_BOOK_BY_TITLE_QUERY = "SELECT * FROM books WHERE title LIKE ?";
-    private static final String UPDATE_BOOK_QUERY = "UPDATE books SET title = ?, author = ? WHERE id = ?";
-    private static final String DELETE_BOOK_QUERY = "DELETE FROM books WHERE id = ?";
-    private static final String COUNT_DUPLICATE_BOOK_QUERY = "SELECT COUNT(*) FROM books WHERE title = ? AND author = ?";
-    private static final String GET_COUNTS_BY_TITLE_QUERY = "SELECT title, COUNT(title), COUNT(DISTINCT author) FROM books GROUP BY title";
-
-    public void createTableIfNotExists() {
-        jdbcTemplate.update(CREATE_TABLE_QUERY);
-    }
+    private static final String INSERT_BOOK_QUERY = "INSERT INTO book (title, author) VALUES (?, ?)";
+    private static final String SELECT_ALL_BOOKS_QUERY = "SELECT * FROM book";
+    private static final String SELECT_BOOK_BY_ID_QUERY = "SELECT * FROM book WHERE id = ?";
+    private static final String SELECT_BOOK_BY_TITLE_QUERY = "SELECT * FROM book WHERE title LIKE ?";
+    private static final String UPDATE_BOOK_QUERY = "UPDATE book SET title = ?, author = ?, borrower_id = ? WHERE id = ?";
+    private static final String DELETE_BOOK_QUERY = "DELETE FROM book WHERE id = ?";
+    private static final String COUNT_DUPLICATE_BOOK_QUERY = "SELECT COUNT(*) FROM book WHERE title = ? AND author = ?";
+    private static final String GET_NUMBER_OF_BOOKS_BORROWED_QUERY = "SELECT COUNT(*) FROM book WHERE borrower_id IS NOT NULL";
 
     public void addBook(BookRequest bookRequest) {
         if (!checkIfDuplicateBook(bookRequest)) {
@@ -73,7 +61,7 @@ public class BookRepository {
 
         if (existingBook.isPresent()) {
             if (!checkIfDuplicateBook(bookRequest)) {
-                jdbcTemplate.update(UPDATE_BOOK_QUERY, bookRequest.getTitle(), bookRequest.getAuthor(), id);
+                jdbcTemplate.update(UPDATE_BOOK_QUERY, bookRequest.getTitle(), bookRequest.getAuthor(), bookRequest.getBorrower().getId(), id);
                 return true; // Update successful
             } else {
                 logger.error("Duplicate entry: Book with the same title and author already exists");
@@ -92,12 +80,8 @@ public class BookRepository {
         int count = jdbcTemplate.queryForObject(COUNT_DUPLICATE_BOOK_QUERY, Integer.class, bookRequest.getTitle(), bookRequest.getAuthor());
         return count > 0;
     }
-    
-    public List<BookCountByTitle> getCountsByTitle() {
-        return jdbcTemplate.query(GET_COUNTS_BY_TITLE_QUERY, (rs, rowNum) -> new BookCountByTitle(
-                rs.getString("title"),
-                rs.getLong(2),
-                rs.getLong(3)
-        ));
+
+    public Long getNumberOfBooksBorrowed() {
+        return jdbcTemplate.queryForObject(GET_NUMBER_OF_BOOKS_BORROWED_QUERY, Long.class);
     }
 }

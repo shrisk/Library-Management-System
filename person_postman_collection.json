@@ -1,0 +1,126 @@
+{
+  "info": {
+    "_postman_id": "c79a2a0e-b055-427c-92e8-e06b4b9305c5",
+    "name": "Library Management System - Person Controller",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Add Person",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"name\": \"John Doe\",\n\t\"email\": \"john.doe@example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/people/addPerson",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "library",
+            "people",
+            "addPerson"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All People",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/people/getAllPeople",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "library",
+            "people",
+            "getAllPeople"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Person by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/people/getPerson/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "library",
+            "people",
+            "getPerson",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Person",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"name\": \"Updated Name\",\n\t\"email\": \"updated.email@example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/people/updatePerson/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "library",
+            "people",
+            "updatePerson",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Person",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/people/deletePerson/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "library",
+            "people",
+            "deletePerson",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
+}

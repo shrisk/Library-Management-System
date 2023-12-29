@@ -1,6 +1,5 @@
 package com.lms.service;
 
-import com.lms.dto.BookCountByTitle;
 import com.lms.dto.BookRequest;
 import com.lms.entity.Book;
 
@@ -10,7 +9,7 @@ import java.util.Optional;
 /**
  * Service interface for managing books in the library.
  */
-public interface LibraryService {
+public interface BookService {
 
     /**
      * Add a new book to the library.
@@ -58,10 +57,11 @@ public interface LibraryService {
      */
     Optional<List<Book>> getBookByTitle(String title);
     
+
     /**
-     * Get counts of books grouped by title.
+     * Get the number of books borrowed from the library.
      *
-     * @return List of {@link BookCountByTitle} representing counts of books.
+     * @return The number of books borrowed.
      */
-    List<BookCountByTitle> getCountsByTitle();
+    Long getNumberOfBooksBorrowed();
 }

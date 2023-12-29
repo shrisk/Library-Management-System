@@ -1,42 +1,61 @@
 package com.lms.entity;
 
-public class Book {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity
+public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private String author;
 
-    // Constructors, getters, and setters
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "borrower_id")
+    private Person borrower;
 
-    public Book() {
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Book(String title, String author) {
-        this.title = title;
-        this.author = author;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public String getAuthor() {
+		return author;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 
-    public String getAuthor() {
-        return author;
-    }
+	public Person getBorrower() {
+		return borrower;
+	}
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+	public void setBorrower(Person borrower) {
+		this.borrower = borrower;
+	}
+
+    
 }
