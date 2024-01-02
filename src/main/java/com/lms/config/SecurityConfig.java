@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/library/visualization/barChart").authenticated()
+                .antMatchers("/visualization/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
             .httpBasic()
