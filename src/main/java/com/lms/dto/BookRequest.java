@@ -1,14 +1,21 @@
 package com.lms.dto;
 
+import com.lms.entity.Person;
+
 public class BookRequest {
 
     private String title;
     private String author;
+    private Person borrower;
     
 	public BookRequest(String title, String author) {
 		super();
 		this.title = title;
 		this.author = author;
+	}
+
+	public BookRequest() {
+		
 	}
 
 	public String getTitle() {
@@ -26,6 +33,14 @@ public class BookRequest {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-    
+
+	public Person getBorrower() {
+		return borrower;
+	}
+
+	public void setBorrower(Person borrower) {
+		this.borrower = borrower;
+	}
+
 }
 

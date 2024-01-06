@@ -7,18 +7,23 @@ import org.springframework.stereotype.Service;
 
 import com.lms.dto.BookRequest;
 import com.lms.entity.Book;
+import com.lms.entity.Person;
 import com.lms.repo.BookRepository;
+import com.lms.repo.PersonRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LibraryServiceImpl implements LibraryService {
+public class BookServiceImpl implements BookService {
 
-    private static final Logger logger = LoggerFactory.getLogger(LibraryServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(BookServiceImpl.class);
 
     @Autowired
     private BookRepository bookRepo;
+    
+    @Autowired
+    private PersonRepository personRepo;
 
     @Override
     public void addBook(BookRequest bookRequest) {
@@ -42,6 +47,20 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public boolean updateBook(Long id, BookRequest bookRequest) {
         logger.info("Updating book with ID {}: {}", id, bookRequest);
+        
+        if (bookRequest.getBorrower().getId() != null) {
+        	Optional<Person> optionalPerson = personRepo.getPersonById(bookRequest.getBorrower().getId());
+        	Person borrower = new Person();
+        	borrower.setId(optionalPerson.get().getId());
+        	borrower.setName(optionalPerson.get().getName());
+        	borrower.setEmail(optionalPerson.get().getEmail());
+        	bookRequest.setBorrower(borrower);
+        	 if (optionalPerson.isEmpty()) {
+        		 logger.warn("Failed to update book. Book borrower not found.");
+        		 return false;
+        	 }
+        }
+        
         boolean result = bookRepo.updateBook(id, bookRequest);
         if (result) {
             logger.info("Book updated successfully.");
@@ -62,5 +81,12 @@ public class LibraryServiceImpl implements LibraryService {
     public Optional<List<Book>> getBookByTitle(String title) {
         logger.info("Retrieving books by title: {}", title);
         return bookRepo.getBookByTitle(title);
+    }
+
+    @Override
+    public Long getNumberOfBooksBorrowed() {
+    	Long count = bookRepo.getNumberOfBooksBorrowed();
+    	logger.info("Number Of Books Borrowed: {}", count);
+    	return count;
     }
 }

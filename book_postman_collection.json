@@ -1,5 +1,6 @@
 {
 	"info": {
+		"_postman_id": "16f80466-2b24-4d62-9a71-7cf6a6e1c729",
 		"name": "Library Management System",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,15 +12,13 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"title\": \"Sample Book\",\n\t\"author\": \"John Doe\"\n}"
+					"raw": "{\"title\": \"Sample Book\",\"author\": \"Sample Author\"}"
 				},
 				"url": {
-					"raw": "{{baseUrl}}/library/addBook",
-					"protocol": "http",
+					"raw": "http://localhost:8080/library/addBook",
 					"host": [
-						"localhost"
+						"http://localhost:8080"
 					],
-					"port": "8080",
 					"path": [
 						"library",
 						"addBook"
@@ -34,12 +33,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/library/getAllBooks",
-					"protocol": "http",
+					"raw": "http://localhost:8080/library/getAllBooks",
 					"host": [
-						"localhost"
+						"http://localhost:8080"
 					],
-					"port": "8080",
 					"path": [
 						"library",
 						"getAllBooks"
@@ -54,15 +51,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/library/getBook/1",
-					"protocol": "http",
+					"raw": "http://localhost:8080/library/getBook/id/1",
 					"host": [
-						"localhost"
+						"http://localhost:8080"
 					],
-					"port": "8080",
 					"path": [
 						"library",
 						"getBook",
+						"id",
 						"1"
 					]
 				}
@@ -76,15 +72,13 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"title\": \"Updated Book\",\n\t\"author\": \"Jane Doe\"\n}"
+					"raw": "{\"title\": \"Updated Book\",\"author\": \"Updated Author\"}"
 				},
 				"url": {
-					"raw": "{{baseUrl}}/library/updateBook/1",
-					"protocol": "http",
+					"raw": "http://localhost:8080/library/updateBook/1",
 					"host": [
-						"localhost"
+						"http://localhost:8080"
 					],
-					"port": "8080",
 					"path": [
 						"library",
 						"updateBook",
@@ -100,12 +94,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/library/deleteBook/1",
-					"protocol": "http",
+					"raw": "http://localhost:8080/library/deleteBook/1",
 					"host": [
-						"localhost"
+						"http://localhost:8080"
 					],
-					"port": "8080",
 					"path": [
 						"library",
 						"deleteBook",
@@ -114,6 +106,27 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get Books by Title",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/library/getBook/title/Sample%20Book",
+					"host": [
+						"http://localhost:8080"
+					],
+					"path": [
+						"library",
+						"getBook",
+						"title",
+						"Sample%20Book"
+					]
+				}
+			},
+			"response": []
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }

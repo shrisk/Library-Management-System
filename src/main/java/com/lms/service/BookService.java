@@ -9,7 +9,7 @@ import java.util.Optional;
 /**
  * Service interface for managing books in the library.
  */
-public interface LibraryService {
+public interface BookService {
 
     /**
      * Add a new book to the library.
@@ -56,4 +56,12 @@ public interface LibraryService {
      * @return An Optional containing a list of books if found, otherwise empty.
      */
     Optional<List<Book>> getBookByTitle(String title);
+    
+
+    /**
+     * Get the number of books borrowed from the library.
+     *
+     * @return The number of books borrowed.
+     */
+    Long getNumberOfBooksBorrowed();
 }

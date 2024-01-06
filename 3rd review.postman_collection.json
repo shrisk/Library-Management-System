@@ -1,0 +1,64 @@
+{
+	"info": {
+		"_postman_id": "9551bb09-7382-46f2-b169-500c2b006c40",
+		"name": "3rd review",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "5859074"
+	},
+	"item": [
+		{
+			"name": "Register Person",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Hari\",\r\n    \"email\": \"hari@gmail.com\",\r\n    \"password\": \"testpwd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/library/security/register"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Book",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Telugu\",\r\n    \"author\": \"SampleAuthor\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/library/book/addBook"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Book",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"hindi\",\r\n    \"author\": \"Updated Author\",\r\n    \"borrower\": {\r\n        \"id\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/library/book/updateBook/1"
+			},
+			"response": []
+		}
+	]
+}
