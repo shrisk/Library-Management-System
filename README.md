@@ -50,5 +50,28 @@ Customize the provided Postman collection for testing.
 
 
 ## SonarQube Scanner
-generate and add the secret key in pom.xml
+Download Community Edition from : https://www.sonarsource.com/products/sonarqube/downloads/
+
+Extract the SonarQube ZIP File:
+Extract the downloaded SonarQube ZIP file to a location on your machine.
+
+Start SonarQube Server:
+Navigate to the SonarQube directory in the terminal or command prompt.
+
+Run the following command to start the SonarQube server:
+bin\windows-x86-64\StartSonar.bat  # For Windows
+
+Wait for the server to start. You can check the logs in the console for any errors.
+
+Access SonarQube Web Interface:
+
+Open your web browser and go to http://localhost:9000.
+The default login credentials are:
+Username: admin
+Password: admin
+
+Generate and add the secret key in pom.xml
+
+## JDK 17
+Install JDK 17 version to support sonarQube scanner.
 
