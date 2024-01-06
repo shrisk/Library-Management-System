@@ -47,3 +47,8 @@ DELETE /library/deleteBook/{id}
 ## Usage
 Use tools like Postman to interact with the APIs.
 Customize the provided Postman collection for testing.
+
+
+## SonarQube Scanner
+generate and add the secret key in pom.xml
+
