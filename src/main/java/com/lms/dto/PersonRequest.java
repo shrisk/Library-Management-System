@@ -1,19 +1,23 @@
 package com.lms.dto;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class PersonRequest {
 
 	@NotNull
+	@NotEmpty
     private String name;
 	
 	@NotNull
+	@NotEmpty
 	@Email(message = "invalid email format")
     private String email;
 	
 	@NotNull
+	@NotEmpty
 	@Size(min = 4, max = 15, message = "password should be between 4 to 15 char")
     private String password;
 

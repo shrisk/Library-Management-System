@@ -14,6 +14,10 @@ public class BookRequest {
 		this.author = author;
 	}
 
+	public BookRequest() {
+		
+	}
+
 	public String getTitle() {
 		return title;
 	}
