@@ -74,4 +74,5 @@ Generate and add the secret key in pom.xml
 
 ## JDK 17
 Install JDK 17 version to support sonarQube scanner.
+https://download.oracle.com/java/17/archive/jdk-17.0.9_windows-x64_bin.zip
 
